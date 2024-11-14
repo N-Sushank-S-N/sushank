@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to Your Dashboard</h1>
+    
+    <div class="container">
+        <div class="row">
+            <!-- Feedback Section -->
+            <div class="col-md-4">
+                <div class="box" id="feedback-box">
+                    <h3>Feedback</h3>
+                </div>
+                <div id="feedback-data" class="box-content" style="display:none;">
+                    <p><strong>ID:</strong> {{ feedback.ID }}</p>
+                    <p><strong>Outcome Status:</strong> {{ feedback.outcome_status }}</p>
+                    <p><strong>Quality of Answers:</strong> {{ feedback.quality_of_answers }}</p>
+                    <p><strong>Sentiment Score:</strong> {{ feedback.sentiment_score }}</p>
+                    <p><strong>Satisfaction Level:</strong> {{ feedback.satisfaction_level }}</p>
+                    <p><strong>Feedback:</strong> {{ feedback.free_form_feedback }}</p>
+                    <p><strong>Session ID:</strong> {{ feedback.session_id }}</p>
+                    <button class="btn btn-primary" onclick="goBack('feedback')">Go Back</button>
+                </div>
+            </div>
+
+            <!-- Impact Metrics Section -->
+            <div class="col-md-4">
+                <div class="box" id="impact-box">
+                    <h3>Impact Metrics</h3>
+                </div>
+                <div id="impact-data" class="box-content" style="display:none;">
+                    <p><strong>Impact Category:</strong> {{ impact_metrics.category }}</p>
+                    <p><strong>Before Score:</strong> {{ impact_metrics.before_score }}</p>
+                    <p><strong>After Score:</strong> {{ impact_metrics.after_score }}</p>
+                    <button class="btn btn-primary" onclick="goBack('impact')">Go Back</button>
+                </div>
+            </div>
+
+            <!-- Aggregated Feedback Section -->
+            <div class="col-md-4">
+                <div class="box" id="aggregated-feedback-box">
+                    <h3>Aggregated Feedback Summary</h3>
+                </div>
+                <div id="aggregated-feedback-data" class="box-content" style="display:none;">
+                    <p><strong>Sentiment Score:</strong> {{ aggregated_feedback.sentiment_scores }}</p>
+                    <p><strong>Satisfaction Breakdown:</strong></p>
+                    <ul>
+                        <li>Very Satisfied: {{ aggregated_feedback.satisfaction_breakdown.very_satisfied }}%</li>
+                        <li>Satisfied: {{ aggregated_feedback.satisfaction_breakdown.satisfied }}%</li>
+                        <li>Neutral: {{ aggregated_feedback.satisfaction_breakdown.neutral }}%</li>
+                    </ul>
+                    <p><strong>Total Interactions:</strong> {{ aggregated_feedback.total_interactions }}</p>
+                    <button class="btn btn-primary" onclick="goBack('aggregated-feedback')">Go Back</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Usage Analytics Section -->
+            <div class="col-md-4">
+                <div class="box" id="usage-box">
+                    <h3>Usage Analytics</h3>
+                </div>
+                <div id="usage-data" class="box-content" style="display:none;">
+                    <p><strong>Total Sessions:</strong> {{ usage_analytics.total_sessions }}</p>
+                    <p><strong>Average Session Duration:</strong> {{ usage_analytics.average_session_duration }}</p>
+                    <p><strong>Popular Use Cases:</strong> {{ usage_analytics.popular_use_cases | join(', ') }}</p>
+                    <button class="btn btn-primary" onclick="goBack('usage')">Go Back</button>
+                </div>
+            </div>
+
+            <!-- Domain-Specific Outcomes Section -->
+            <div class="col-md-4">
+                <div class="box" id="domain-box">
+                    <h3>Domain-Specific Outcomes</h3>
+                </div>
+                <div id="domain-data" class="box-content" style="display:none;">
+                    <p><strong>Education:</strong> {{ domain_outcomes.education }}</p>
+                    <p><strong>Business:</strong> {{ domain_outcomes.business }}</p>
+                    <button class="btn btn-primary" onclick="goBack('domain')">Go Back</button>
+                </div>
+            </div>
+
+            <!-- Real-Time User Sentiment Monitoring Section -->
+            <div class="col-md-4">
+                <div class="box" id="real-time-sentiment-box">
+                    <h3>Real-Time User Sentiment Monitoring</h3>
+                </div>
+                <div id="real-time-sentiment-data" class="box-content" style="display:none;">
+                    <p><strong>Sentiment Score:</strong> {{ real_time_sentiment.sentiment_score }}</p>
+                    <p><strong>User Satisfaction Score:</strong> {{ real_time_sentiment.user_satisfaction_score }}</p>
+                    <p><strong>Session Progress:</strong> {{ real_time_sentiment.session_progress }}</p>
+                    <button class="btn btn-primary" onclick="goBack('real-time-sentiment')">Go Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle visibility of the data when a box is clicked
+        document.getElementById('feedback-box').addEventListener('click', function() {
+            toggleData('feedback');
+        });
+        document.getElementById('impact-box').addEventListener('click', function() {
+            toggleData('impact');
+        });
+        document.getElementById('aggregated-feedback-box').addEventListener('click', function() {
+            toggleData('aggregated-feedback');
+        });
+        document.getElementById('usage-box').addEventListener('click', function() {
+            toggleData('usage');
+        });
+        document.getElementById('domain-box').addEventListener('click', function() {
+            toggleData('domain');
+        });
+        document.getElementById('real-time-sentiment-box').addEventListener('click', function() {
+            toggleData('real-time-sentiment');
+        });
+
+        function toggleData(section) {
+            document.getElementById(section + '-data').style.display = 'block';
+            document.getElementById(section + '-box').style.display = 'none';
+        }
+
+        function goBack(section) {
+            document.getElementById(section + '-data').style.display = 'none';
+            document.getElementById(section + '-box').style.display = 'block';
+        }
+    </script>
+{% endblock %}
